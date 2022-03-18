@@ -6,7 +6,24 @@
 // have 1 question and 4 answers where we know where one correct answer is
 
 // THEN a timer starts and I am presented with a question
+
+// start page that hides on click to begin
+
+var button = document.getElementById("startButton"); 
+
+button.onclick = function() {
+    var div = document.getElementById("hide");
+    if (div.style.display !== "none") {
+        div.style.display = "none";
+    }
+    else {
+        div.style.display = "block";
+    }
+};
+
+// 
 var timeEl = document.querySelector(".time");
+
 var secondsLeft = 60;
 function setTime() {
     var timerInterval = setInterval(function() {
