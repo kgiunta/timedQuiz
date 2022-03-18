@@ -6,8 +6,22 @@
 // have 1 question and 4 answers where we know where one correct answer is
 
 // THEN a timer starts and I am presented with a question
-
-
+var timeEl = document.querySelector(".time");
+var secondsLeft = 60;
+function setTime() {
+    var timerInterval = setInterval(function() {
+      secondsLeft--;
+      timeEl.textContent = secondsLeft + " seconds left.";
+  
+      if(secondsLeft === 0) {
+        // Stops execution of action at set interval
+        clearInterval(timerInterval);
+        // Calls function to create and append image
+        sendMessage();
+      }
+  
+    }, 1000);
+  }
 // WHEN I answer a question
 
  var questionOne = {
