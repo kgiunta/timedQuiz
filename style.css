@@ -1,15 +1,18 @@
-body{
-
-    text-align: center;
-    color: white;
-    background-color: navy;
+body {
+  text-align: center;
+  color: white;
+  background-color: navy;
 }
 
 .hide:visited {
-    display: none;
+  display: none;
 }
 
-.time{
-    display: flex;
-    align-items: flex-end;
+.time {
+  display: flex;
+  align-items: flex-end;
+}
+button {
+  align-items: center;
+  justify-content: center;
 }
