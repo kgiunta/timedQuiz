@@ -1,0 +1,14 @@
+section {
+  font-size: large;
+  display: flex;
+  justify-content: center;
+  color: rgb(190, 223, 212);
+}
+h2 {
+  font-size: 40px;
+}
+
+button {
+  background-color: rgb(190, 223, 212);
+  color: white;
+}

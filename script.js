@@ -52,6 +52,7 @@ var currentQuestion = 0;
 var userAnswersArray = [];
 var correctAnswersArray = [];
 var button = document.getElementById("startButton");
+var display = document.getElementById("time");
 var body = document.body;
 var header = document.head;
 var questionSecton = document.createElement("section");
@@ -80,61 +81,7 @@ questionSecton.appendChild(buttonB);
 questionSecton.appendChild(buttonC);
 questionSecton.appendChild(buttonD);
 
-// ???
-function listRun() {
-  if (currentQuestion.length <= 4) {
-    updateContent;
-  }
-}
-
-// function beginQuiz() {
-//   setTime();
-//   header.style.display = "none";
-//   body.style.display = "none";
-//   updateContent();
-// }
-
-button.onclick = function () {
-  var div = document.getElementById("hide");
-  if (div.style.display !== "block") {
-    div.style.display = "none";
-  } else {
-    body.style.display = "block";
-    setTime();
-  }
-};
-function updateContent() {
-  if (currentQuestion <= 5) {
-    // if length// check if more questions before ++
-    currentQuestion++;
-    document.getElementById("questionText").textContent =
-      quizArray[currentQuestion].question;
-
-    document.getElementById("buttonA").textContent =
-      quizArray[currentQuestion].options[0];
-
-    document.getElementById("buttonB").textContent =
-      quizArray[currentQuestion].options[1];
-
-    document.getElementById("buttonC").textContent =
-      quizArray[currentQuestion].options[2];
-
-    document.getElementById("buttonD").textContent =
-      quizArray[currentQuestion].options[3];
-    // } else {
-    // }
-    // return console.log("Quiz end");
-  }
-}
-
-// var userAnswer = function (event) {
-//   var selectedanswer = event.target;
-//   console.log(selectedanswer);
-//   // if(
-//   //   quizArray[0][2] === selectedanswer
-//   // )
-// };
-// buttonA.onclick = userAnswer;
+// timer countdown from 60 seconds
 var secondsLeft = 60;
 function setTime() {
   // Sets interval in variable
@@ -142,21 +89,96 @@ function setTime() {
     secondsLeft--;
     timeEl.textContent = secondsLeft + " seconds left.";
 
-    if (secondsLeft === 0) {
+    if (secondsLeft <= 0) {
+      // if (secondsLeft === 0) {
       clearInterval(timerInterval);
 
       // sendMessage();
     }
   }, 1000);
 }
+
+document.getElementById("time").style.visibility = "hidden";
+document.getElementById("questionText").style.visibility = "hidden";
+document.getElementById("buttonA").style.visibility = "hidden";
+document.getElementById("buttonB").style.visibility = "hidden";
+document.getElementById("buttonC").style.visibility = "hidden";
+document.getElementById("buttonD").style.visibility = "hidden";
+
+// not functioning
+function beginQuiz() {
+  setTime();
+
+  // var h2 = document.getElementById("questionText");
+  // h2.style.display = "none";
+  // var timeHtml = document.getElementById("time");
+  // timeHtml.style.display = "none";
+  // updateContent();
+}
+
+button.onclick = function () {
+  var div = document.getElementById("hide");
+  div.style.display = "none";
+  document.getElementById("time").style.visibility = "visible";
+  document.getElementById("questionText").style.visibility = "visible";
+  document.getElementById("buttonA").style.visibility = "visible";
+  document.getElementById("buttonB").style.visibility = "visible";
+  document.getElementById("buttonC").style.visibility = "visible";
+  document.getElementById("buttonD").style.visibility = "visible";
+};
+//  } else {
+//   beginQuiz()
+
+// body.style.display = "block";
+// var timer = document.createElement("h2");
+// timer.setAttribute("id", "timer");
+// display.append(timer);
+// setTime();
+// }
+
+// switches through questions
+function updateContent() {
+  currentQuestion++;
+  if (currentQuestion === 5 || secondsLeft <= 0) {
+    questionSecton.innerHTML = "";
+    // if should turn to hiscore html
+    // else would be to populate end quiz
+  }
+
+  document.getElementById("questionText").textContent =
+    quizArray[currentQuestion].question;
+
+  document.getElementById("buttonA").textContent =
+    quizArray[currentQuestion].options[0];
+
+  document.getElementById("buttonB").textContent =
+    quizArray[currentQuestion].options[1];
+
+  document.getElementById("buttonC").textContent =
+    quizArray[currentQuestion].options[2];
+
+  document.getElementById("buttonD").textContent =
+    quizArray[currentQuestion].options[3];
+  //  } else (
+  // return console.log("Quiz end");
+  //  )
+}
+
+// endgame
+function endGame() {
+  if (secondsLeft <= 0 || currentQuestion === 5) {
+    clearInterval(secondsLeft);
+    questionSecton.innerHTML = "";
+  }
+}
+
+// checks users answers against correct answers
 function checkAnswer() {
   if (
     userAnswersArray[currentQuestion] === correctAnswersArray[currentQuestion]
   ) {
-    console.log(secondsLeft);
     secondsLeft += 2;
   } else {
-    console.log("wrong");
     secondsLeft -= 15;
   }
 }
@@ -165,7 +187,7 @@ setTime();
 buttonA.onclick = function () {
   console.log();
   // get elementby id is the ability to change by running functions
-  // need to save their answer in an array before updating coentent
+
   var userAnswer = quizArray[currentQuestion].options[0];
   userAnswersArray.push(userAnswer);
   console.log(userAnswersArray);
@@ -206,24 +228,7 @@ buttonD.onclick = function () {
   console.log(correctAnswersArray);
 
   checkAnswer();
-  // updateContent(); will be changed to new function called finish quiz
+  updateContent();
 };
 
-// local storage content
-// if there are no more questions need to call a new function that must be made called gradeQuiz
-
-// put questions in array and onclick of array go to next question in array
-
-// quiz[0].questionOne[2]
-// quiz[0].ans
-// THEN I am presented with another question
-// WHEN I answer a question incorrectly
-// THEN time is subtracted from the clock
-// WHEN all questions are answered or the timer reaches 0
-// THEN the game is over
-// WHEN the game is over
-// THEN I can save my initials and my score
-
-//  need a place for my questions
-// need a place for multiple choices that are strings
-// place to store correct answers
+// display secondsLeft at end

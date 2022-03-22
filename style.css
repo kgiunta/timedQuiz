@@ -1,7 +1,7 @@
 body {
   text-align: center;
-  color: white;
-  background-color: navy;
+  color: rgb(165, 218, 218);
+  background-color: white;
 }
 
 .hide {
@@ -15,4 +15,9 @@ body {
 button {
   align-items: center;
   justify-content: center;
+  background-color: rgb(165, 218, 218);
+  color: whitesmoke;
+}
+#id {
+  display: none;
 }
