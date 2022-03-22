@@ -87,12 +87,20 @@ function listRun() {
   }
 }
 
+// function beginQuiz() {
+//   setTime();
+//   header.style.display = "none";
+//   body.style.display = "none";
+//   updateContent();
+// }
+
 button.onclick = function () {
   var div = document.getElementById("hide");
   if (div.style.display !== "block") {
     div.style.display = "none";
   } else {
     body.style.display = "block";
+    setTime();
   }
 };
 function updateContent() {
@@ -141,6 +149,18 @@ function setTime() {
     }
   }, 1000);
 }
+function checkAnswer() {
+  if (
+    userAnswersArray[currentQuestion] === correctAnswersArray[currentQuestion]
+  ) {
+    console.log(secondsLeft);
+    secondsLeft += 2;
+  } else {
+    console.log("wrong");
+    secondsLeft -= 15;
+  }
+}
+
 setTime();
 buttonA.onclick = function () {
   console.log();
@@ -152,13 +172,7 @@ buttonA.onclick = function () {
   var correctAnswer = quizArray[currentQuestion].ans;
   correctAnswersArray.push(correctAnswer);
   console.log(correctAnswersArray);
-  if (
-    userAnswersArray[currentQuestion] === correctAnswersArray[currentQuestion]
-  ) {
-    secondsLeft + 2;
-  } else {
-    secondsLeft - 15;
-  }
+  checkAnswer();
   updateContent();
 };
 
@@ -169,6 +183,7 @@ buttonB.onclick = function () {
   var correctAnswer = quizArray[currentQuestion].ans;
   correctAnswersArray.push(correctAnswer);
   console.log(correctAnswersArray);
+  checkAnswer();
   updateContent();
 };
 buttonC.onclick = function () {
@@ -178,6 +193,8 @@ buttonC.onclick = function () {
   var correctAnswer = quizArray[currentQuestion].ans;
   correctAnswersArray.push(correctAnswer);
   console.log(correctAnswersArray);
+
+  checkAnswer();
   updateContent();
 };
 buttonD.onclick = function () {
@@ -187,9 +204,12 @@ buttonD.onclick = function () {
   var correctAnswer = quizArray[currentQuestion].ans;
   correctAnswersArray.push(correctAnswer);
   console.log(correctAnswersArray);
+
+  checkAnswer();
   // updateContent(); will be changed to new function called finish quiz
 };
 
+// local storage content
 // if there are no more questions need to call a new function that must be made called gradeQuiz
 
 // put questions in array and onclick of array go to next question in array
