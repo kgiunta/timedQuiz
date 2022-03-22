@@ -68,6 +68,7 @@ var buttonD = document.createElement("button");
 buttonD.setAttribute("id", "buttonD");
 var secondsLeft = document.createElement("header");
 var timeEl = document.getElementById("time");
+var timerInterval;
 header.appendChild(secondsLeft);
 body.appendChild(questionSecton);
 questionText.textContent = quizArray[currentQuestion].question;
@@ -85,14 +86,14 @@ questionSecton.appendChild(buttonD);
 var secondsLeft = 60;
 function setTime() {
   // Sets interval in variable
-  var timerInterval = setInterval(function () {
+  timerInterval = setInterval(function () {
     secondsLeft--;
     timeEl.textContent = secondsLeft + " seconds left.";
 
     if (secondsLeft <= 0) {
       // if (secondsLeft === 0) {
       clearInterval(timerInterval);
-
+      endGame();
       // sendMessage();
     }
   }, 1000);
@@ -141,6 +142,8 @@ function updateContent() {
   currentQuestion++;
   if (currentQuestion === 5 || secondsLeft <= 0) {
     questionSecton.innerHTML = "";
+    clearInterval(timerInterval);
+    endGame();
     // if should turn to hiscore html
     // else would be to populate end quiz
   }
@@ -166,10 +169,9 @@ function updateContent() {
 
 // endgame
 function endGame() {
-  if (secondsLeft <= 0 || currentQuestion === 5) {
-    clearInterval(secondsLeft);
-    questionSecton.innerHTML = "";
-  }
+  var score = secondsLeft;
+  localStorage.setItem("currentScore", score);
+  window.location.href = "./highScore.html";
 }
 
 // checks users answers against correct answers
