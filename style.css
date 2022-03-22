@@ -4,8 +4,8 @@ body {
   background-color: navy;
 }
 
-.hide:visited {
-  display: none;
+.hide {
+  display: block;
 }
 
 .time {

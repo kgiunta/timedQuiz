@@ -49,7 +49,8 @@ var quizArray = [
   },
 ];
 var currentQuestion = 0;
-var answersArray = [];
+var userAnswersArray = [];
+var correctAnswersArray = [];
 var button = document.getElementById("startButton");
 var body = document.body;
 var header = document.head;
@@ -65,6 +66,7 @@ buttonC.setAttribute("id", "buttonC");
 var buttonD = document.createElement("button");
 buttonD.setAttribute("id", "buttonD");
 var secondsLeft = document.createElement("header");
+var timeEl = document.getElementById("time");
 header.appendChild(secondsLeft);
 body.appendChild(questionSecton);
 questionText.textContent = quizArray[currentQuestion].question;
@@ -85,79 +87,112 @@ function listRun() {
   }
 }
 
-function updateContent() {
-  // if length// check if more questions before ++
-  currentQuestion++;
-  document.getElementById("questionText").textContent =
-    quizArray[currentQuestion].question;
-
-  document.getElementById("buttonA").textContent =
-    quizArray[currentQuestion].options[0];
-
-  document.getElementById("buttonB").textContent =
-    quizArray[currentQuestion].options[1];
-
-  document.getElementById("buttonC").textContent =
-    quizArray[currentQuestion].options[2];
-
-  document.getElementById("buttonD").textContent =
-    quizArray[currentQuestion].options[3];
-}
-
-buttonA.onclick = function () {
-  // get elementby id is the ability to change by running functions
-  // need to save their answer in an array before updating coentent
-  var userAnswer = quizArray[currentQuestion].options[0];
-  updateContent();
-};
-
-buttonB.onclick = function () {
-  var userAnswer = quizArray[currentQuestion].options[1];
-  updateContent();
-};
-buttonC.onclick = function () {
-  var userAnswer = quizArray[currentQuestion].options[2];
-  updateContent();
-};
-buttonD.onclick = function () {
-  var userAnswer = quizArray[currentQuestion].options[3];
-
-  updateContent();
-};
-
 button.onclick = function () {
   var div = document.getElementById("hide");
-  if (div.style.display !== "none") {
+  if (div.style.display !== "block") {
     div.style.display = "none";
   } else {
-    div.style.display = "block";
+    body.style.display = "block";
   }
 };
-// if there are no more questions need to call a new function that must be made called gradeQuiz
+function updateContent() {
+  if (currentQuestion <= 5) {
+    // if length// check if more questions before ++
+    currentQuestion++;
+    document.getElementById("questionText").textContent =
+      quizArray[currentQuestion].question;
 
-//
-var timeEl = document.querySelector(".time");
+    document.getElementById("buttonA").textContent =
+      quizArray[currentQuestion].options[0];
 
+    document.getElementById("buttonB").textContent =
+      quizArray[currentQuestion].options[1];
+
+    document.getElementById("buttonC").textContent =
+      quizArray[currentQuestion].options[2];
+
+    document.getElementById("buttonD").textContent =
+      quizArray[currentQuestion].options[3];
+    // } else {
+    // }
+    // return console.log("Quiz end");
+  }
+}
+
+// var userAnswer = function (event) {
+//   var selectedanswer = event.target;
+//   console.log(selectedanswer);
+//   // if(
+//   //   quizArray[0][2] === selectedanswer
+//   // )
+// };
+// buttonA.onclick = userAnswer;
 var secondsLeft = 60;
 function setTime() {
+  // Sets interval in variable
   var timerInterval = setInterval(function () {
     secondsLeft--;
     timeEl.textContent = secondsLeft + " seconds left.";
 
     if (secondsLeft === 0) {
-      // Stops execution of action at set interval
       clearInterval(timerInterval);
-      // Calls function to create and append image
-      sendMessage();
+
+      // sendMessage();
     }
   }, 1000);
-  console.log(secondsLeft);
 }
+setTime();
+buttonA.onclick = function () {
+  console.log();
+  // get elementby id is the ability to change by running functions
+  // need to save their answer in an array before updating coentent
+  var userAnswer = quizArray[currentQuestion].options[0];
+  userAnswersArray.push(userAnswer);
+  console.log(userAnswersArray);
+  var correctAnswer = quizArray[currentQuestion].ans;
+  correctAnswersArray.push(correctAnswer);
+  console.log(correctAnswersArray);
+  if (
+    userAnswersArray[currentQuestion] === correctAnswersArray[currentQuestion]
+  ) {
+    secondsLeft + 2;
+  } else {
+    secondsLeft - 15;
+  }
+  updateContent();
+};
 
-// // append each question on click
+buttonB.onclick = function () {
+  var userAnswer = quizArray[currentQuestion].options[1];
+  userAnswersArray.push(userAnswer);
+  console.log(userAnswersArray);
+  var correctAnswer = quizArray[currentQuestion].ans;
+  correctAnswersArray.push(correctAnswer);
+  console.log(correctAnswersArray);
+  updateContent();
+};
+buttonC.onclick = function () {
+  var userAnswer = quizArray[currentQuestion].options[2];
+  userAnswersArray.push(userAnswer);
+  console.log(userAnswersArray);
+  var correctAnswer = quizArray[currentQuestion].ans;
+  correctAnswersArray.push(correctAnswer);
+  console.log(correctAnswersArray);
+  updateContent();
+};
+buttonD.onclick = function () {
+  var userAnswer = quizArray[currentQuestion].options[3];
+  userAnswersArray.push(userAnswer);
+  console.log(userAnswersArray);
+  var correctAnswer = quizArray[currentQuestion].ans;
+  correctAnswersArray.push(correctAnswer);
+  console.log(correctAnswersArray);
+  // updateContent(); will be changed to new function called finish quiz
+};
+
+// if there are no more questions need to call a new function that must be made called gradeQuiz
 
 // put questions in array and onclick of array go to next question in array
-// var firstQuestion = document.createElement("h1")
 
 // quiz[0].questionOne[2]
 // quiz[0].ans
