@@ -6,3 +6,5 @@ document.getElementById("submitName").addEventListener("click", function () {
   var userName = document.getElementById("name").value;
   localStorage.setItem("highScore", JSON.stringify({ userName: getScore }));
 });
+
+console.log(localStorage);
